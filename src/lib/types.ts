@@ -75,3 +75,7 @@ export const TRAINING_FIELDS = [
   "医療安全",
   "その他",
 ] as const;
+
+export const TRAINING_FIELD_ITEMS: Record<string, string> = Object.fromEntries(
+  TRAINING_FIELDS.map((field) => [field, field]),
+);

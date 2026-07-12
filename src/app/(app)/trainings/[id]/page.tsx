@@ -108,11 +108,18 @@ export default async function TrainingDetailPage({
 
       <div className="mt-6 flex flex-wrap gap-2">
         {training.apply_url && (
-          <Button render={<a href={training.apply_url} target="_blank" rel="noopener noreferrer" />}>
+          <Button
+            nativeButton={false}
+            render={<a href={training.apply_url} target="_blank" rel="noopener noreferrer" />}
+          >
             申込ページを開く
           </Button>
         )}
-        <Button variant="outline" render={<Link href={`/trainings/${training.id}/edit`} />}>
+        <Button
+          variant="outline"
+          nativeButton={false}
+          render={<Link href={`/trainings/${training.id}/edit`} />}
+        >
           編集する
         </Button>
         <form action={deleteWithId}>

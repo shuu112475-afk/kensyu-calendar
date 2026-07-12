@@ -66,6 +66,7 @@ export default async function CalendarPage({
           <Button
             variant="outline"
             size="icon"
+            nativeButton={false}
             render={<Link href={monthLink(prevMonth.year, prevMonth.month, { field, format })} />}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -76,6 +77,7 @@ export default async function CalendarPage({
           <Button
             variant="outline"
             size="icon"
+            nativeButton={false}
             render={<Link href={monthLink(nextMonth.year, nextMonth.month, { field, format })} />}
           >
             <ChevronRight className="h-4 w-4" />
@@ -84,6 +86,7 @@ export default async function CalendarPage({
             variant="outline"
             size="sm"
             className="ml-2"
+            nativeButton={false}
             render={
               <Link
                 href={monthLink(today.getFullYear(), today.getMonth() + 1, { field, format })}

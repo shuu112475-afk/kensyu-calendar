@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { TRAINING_FIELDS, FORMAT_LABEL } from "@/lib/types";
+import { TRAINING_FIELDS, TRAINING_FIELD_ITEMS, FORMAT_LABEL } from "@/lib/types";
 
 export function TrainingFilterBar() {
   const router = useRouter();
@@ -31,7 +31,11 @@ export function TrainingFilterBar() {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <Select value={field} onValueChange={(value) => updateParam("field", value)}>
+      <Select
+        items={TRAINING_FIELD_ITEMS}
+        value={field}
+        onValueChange={(value) => updateParam("field", value)}
+      >
         <SelectTrigger className="w-36" size="sm">
           <SelectValue placeholder="分野で絞り込み" />
         </SelectTrigger>
@@ -44,7 +48,11 @@ export function TrainingFilterBar() {
         </SelectContent>
       </Select>
 
-      <Select value={format} onValueChange={(value) => updateParam("format", value)}>
+      <Select
+        items={FORMAT_LABEL}
+        value={format}
+        onValueChange={(value) => updateParam("format", value)}
+      >
         <SelectTrigger className="w-40" size="sm">
           <SelectValue placeholder="開催形式で絞り込み" />
         </SelectTrigger>

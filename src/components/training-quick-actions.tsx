@@ -50,6 +50,7 @@ export function TrainingQuickActions({
       </Button>
 
       <Select
+        items={APPLICATION_STATUS_LABEL}
         value={applicationStatus}
         onValueChange={(value) =>
           value &&
@@ -71,6 +72,7 @@ export function TrainingQuickActions({
       </Select>
 
       <Select
+        items={PARTICIPATION_STATUS_LABEL}
         value={participationStatus}
         onValueChange={(value) =>
           value &&

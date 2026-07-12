@@ -12,7 +12,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SubmitButton } from "@/components/submit-button";
-import { TRAINING_FIELDS, type Training } from "@/lib/types";
+import {
+  FORMAT_LABEL,
+  TRAINING_FIELDS,
+  TRAINING_FIELD_ITEMS,
+  type Training,
+} from "@/lib/types";
 import type { TrainingActionState } from "@/lib/actions/trainings";
 
 const initialState: TrainingActionState = { error: null };
@@ -84,7 +89,7 @@ export function TrainingForm({
 
         <div className="space-y-2">
           <Label htmlFor="format">開催形式</Label>
-          <Select name="format" defaultValue={training?.format ?? undefined}>
+          <Select name="format" items={FORMAT_LABEL} defaultValue={training?.format ?? undefined}>
             <SelectTrigger id="format" className="w-full">
               <SelectValue placeholder="選択してください" />
             </SelectTrigger>
@@ -97,7 +102,11 @@ export function TrainingForm({
 
         <div className="space-y-2">
           <Label htmlFor="field">分野</Label>
-          <Select name="field" defaultValue={training?.field ?? undefined}>
+          <Select
+            name="field"
+            items={TRAINING_FIELD_ITEMS}
+            defaultValue={training?.field ?? undefined}
+          >
             <SelectTrigger id="field" className="w-full">
               <SelectValue placeholder="選択してください" />
             </SelectTrigger>

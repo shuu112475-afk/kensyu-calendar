@@ -79,7 +79,7 @@ export function AppShell({
           </Link>
 
           <div className="ml-auto flex items-center gap-2">
-            <Button render={<Link href="/trainings/new" />} size="sm">
+            <Button render={<Link href="/trainings/new" />} nativeButton={false} size="sm">
               研修を登録
             </Button>
             <DropdownMenu>
