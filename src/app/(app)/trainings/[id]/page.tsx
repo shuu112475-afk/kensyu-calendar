@@ -9,6 +9,7 @@ import {
   FavoriteBadge,
   ParticipationStatusBadge,
 } from "@/components/training-status-badge";
+import { TrainingQuickActions } from "@/components/training-quick-actions";
 import { FORMAT_LABEL, type Training } from "@/lib/types";
 import { deleteTraining } from "@/lib/actions/trainings";
 
@@ -56,6 +57,15 @@ export default async function TrainingDetailPage({
       {training.overview && (
         <p className="mt-4 whitespace-pre-wrap text-sm text-foreground">{training.overview}</p>
       )}
+
+      <div className="mt-4">
+        <TrainingQuickActions
+          trainingId={training.id}
+          isFavorite={training.is_favorite}
+          applicationStatus={training.application_status}
+          participationStatus={training.participation_status}
+        />
+      </div>
 
       <Separator className="my-6" />
 
