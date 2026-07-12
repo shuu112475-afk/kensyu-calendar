@@ -10,7 +10,7 @@ https://kensyu-calendar.vercel.app
 
 ## スクリーンショット
 
-<!-- TODO: 主要画面（カレンダー・研修詳細）のスクリーンショットを追加 -->
+![研修カレンダー画面](./docs/screenshot-calendar.jpg)
 
 ## 誰のためのアプリか
 
