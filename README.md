@@ -6,7 +6,7 @@
 
 ## 公開URL
 
-<!-- TODO: Vercelデプロイ後にURLを記載 -->
+https://kensyu-calendar.vercel.app
 
 ## スクリーンショット
 
@@ -34,7 +34,7 @@
 - [Supabase](https://supabase.com/)（Postgres, Auth, Row Level Security）
 - [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)（`@base-ui/react`ベース）
 - [date-fns](https://date-fns.org/)（カレンダーの日付計算）
-- [Vercel](https://vercel.com/)（ホスティング、Supabase Marketplace統合）
+- [Vercel](https://vercel.com/)（ホスティング）
 
 ## セットアップ
 
