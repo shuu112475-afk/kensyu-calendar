@@ -10,6 +10,7 @@ import {
   ParticipationStatusBadge,
 } from "@/components/training-status-badge";
 import { TrainingQuickActions } from "@/components/training-quick-actions";
+import { TrainingNoteForm } from "@/components/training-note-form";
 import { FORMAT_LABEL, type Training } from "@/lib/types";
 import { deleteTraining } from "@/lib/actions/trainings";
 
@@ -119,6 +120,18 @@ export default async function TrainingDetailPage({
             削除する
           </Button>
         </form>
+      </div>
+
+      <Separator className="my-6" />
+
+      <div>
+        <h2 className="text-base font-semibold">受講メモ</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          参加後の要点・学び・業務への活用を記録できます。
+        </p>
+        <div className="mt-4">
+          <TrainingNoteForm training={training} />
+        </div>
       </div>
     </div>
   );
