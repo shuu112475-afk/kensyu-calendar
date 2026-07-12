@@ -1,23 +1,32 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { requireUser } from "@/lib/auth";
 import { getMonthGrid, toDateKey, WEEKDAY_LABELS } from "@/lib/calendar";
 import { Button } from "@/components/ui/button";
+import { TrainingFilterBar } from "@/components/training-filter-bar";
 import { FORMAT_LABEL, type Training } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-function monthLink(year: number, month: number) {
-  return `/?y=${year}&m=${month}`;
+function monthLink(
+  year: number,
+  month: number,
+  filters: { field?: string; format?: string } = {},
+) {
+  const params = new URLSearchParams({ y: String(year), m: String(month) });
+  if (filters.field) params.set("field", filters.field);
+  if (filters.format) params.set("format", filters.format);
+  return `/?${params.toString()}`;
 }
 
 export default async function CalendarPage({
   searchParams,
 }: {
-  searchParams: Promise<{ y?: string; m?: string }>;
+  searchParams: Promise<{ y?: string; m?: string; field?: string; format?: string }>;
 }) {
   await requireUser();
-  const { y, m } = await searchParams;
+  const { y, m, field, format } = await searchParams;
 
   const today = new Date();
   const year = y ? Number(y) : today.getFullYear();
@@ -26,12 +35,17 @@ export default async function CalendarPage({
   const { monthStart, gridStart, gridEnd, weeks } = getMonthGrid(year, month);
 
   const supabase = await createClient();
-  const { data } = await supabase
+  let query = supabase
     .from("trainings")
     .select("*")
     .gte("event_date", toDateKey(gridStart))
     .lte("event_date", toDateKey(gridEnd))
     .order("start_time", { ascending: true, nullsFirst: false });
+
+  if (field) query = query.eq("field", field);
+  if (format) query = query.eq("format", format);
+
+  const { data } = await query;
 
   const trainings = (data ?? []) as Training[];
   const trainingsByDate = new Map<string, Training[]>();
@@ -46,27 +60,45 @@ export default async function CalendarPage({
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-semibold">研修カレンダー</h1>
         <div className="flex items-center gap-1">
-          <Button variant="outline" size="icon" render={<Link href={monthLink(prevMonth.year, prevMonth.month)} />}>
+          <Button
+            variant="outline"
+            size="icon"
+            render={<Link href={monthLink(prevMonth.year, prevMonth.month, { field, format })} />}
+          >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <span className="w-28 text-center text-sm font-medium">
             {year}年{month}月
           </span>
-          <Button variant="outline" size="icon" render={<Link href={monthLink(nextMonth.year, nextMonth.month)} />}>
+          <Button
+            variant="outline"
+            size="icon"
+            render={<Link href={monthLink(nextMonth.year, nextMonth.month, { field, format })} />}
+          >
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
             size="sm"
             className="ml-2"
-            render={<Link href={monthLink(today.getFullYear(), today.getMonth() + 1)} />}
+            render={
+              <Link
+                href={monthLink(today.getFullYear(), today.getMonth() + 1, { field, format })}
+              />
+            }
           >
             今月
           </Button>
         </div>
+      </div>
+
+      <div className="mt-3">
+        <Suspense fallback={null}>
+          <TrainingFilterBar />
+        </Suspense>
       </div>
 
       <div className="mt-4 grid grid-cols-7 overflow-hidden rounded-lg border text-sm">
